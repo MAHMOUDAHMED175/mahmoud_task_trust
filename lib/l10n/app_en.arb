@@ -1,0 +1,16 @@
+{
+    "@@locale": "en",
+    "appName": "Food App",
+    "pleaseWait": "Please wait...",
+    "error": "Error: {message}",
+    "productDetails": "Product Details",
+    "addons": "Add-ons",
+    "addToCart": "Add to Cart",
+    "cartEmpty": "Your cart is empty.",
+    "cartUpdated": "Cart updated!",
+    "cartError": "Cart error: {message}",
+    "checkout": "Checkout",
+    "total": "Total: {totalPrice}",
+    "itemAddedToCart": "Item added to cart!",
+    "failedToAddItemToCart": "Failed to add to cart: {message}"
+}

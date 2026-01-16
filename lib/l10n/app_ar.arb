@@ -1,0 +1,16 @@
+{
+    "@@locale": "ar",
+    "appName": "تطبيق طعام",
+    "pleaseWait": "الرجاء الانتظار...",
+    "error": "خطأ: {message}",
+    "productDetails": "تفاصيل المنتج",
+    "addons": "إضافات",
+    "addToCart": "أضف إلى السلة",
+    "cartEmpty": "سلة التسوق فارغة.",
+    "cartUpdated": "تم تحديث السلة!",
+    "cartError": "خطأ في السلة: {message}",
+    "checkout": "الدفع",
+    "total": "الإجمالي: {totalPrice}",
+    "itemAddedToCart": "تمت إضافة العنصر إلى السلة!",
+    "failedToAddItemToCart": "فشل إضافة العنصر إلى السلة: {message}"
+}
