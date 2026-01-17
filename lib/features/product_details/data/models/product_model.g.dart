@@ -1,0 +1,151 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'product_model.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$ProductDetailsModelImpl _$$ProductDetailsModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ProductDetailsModelImpl(
+      id: (json['id'] as num).toInt(),
+      name: json['name'] as String,
+      slug: json['slug'] as String,
+      dateCreated: _dateTimeFromJson(json['date_created']),
+      dateModified: _dateTimeFromJson(json['date_modified']),
+      status: json['status'] as String,
+      featured: json['featured'] as bool,
+      catalogVisibility: _stringFromJson(json['catalog_visibility']),
+      description: json['description'] as String,
+      shortDescription: _stringFromJson(json['short_description']),
+      sku: _stringFromJson(json['sku']),
+      globalUniqueId: _stringFromJson(json['global_unique_id']),
+      price: _stringFromJson(json['price']),
+      regularPrice: _stringFromJson(json['regular_price']),
+      salePrice: _stringFromJson(json['sale_price']),
+      totalSales: (json['total_sales'] as num).toInt(),
+      taxStatus: _stringFromJson(json['tax_status']),
+      taxClass: _stringFromJson(json['tax_class']),
+      manageStock: json['manage_stock'] as bool,
+      stockQuantity: (json['stock_quantity'] as num?)?.toInt(),
+      stockStatus: _stringFromJson(json['stock_status']),
+      backorders: _stringFromJson(json['backorders']),
+      soldIndividually: json['sold_individually'] as bool,
+      weight: _stringFromJson(json['weight']),
+      length: _stringFromJson(json['length']),
+      width: _stringFromJson(json['width']),
+      height: _stringFromJson(json['height']),
+      upsellIds: (json['upsell_ids'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
+      crossSellIds: (json['cross_sell_ids'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
+      parentId: (json['parent_id'] as num).toInt(),
+      reviewsAllowed: json['reviews_allowed'] as bool,
+      purchaseNote: _stringFromJson(json['purchase_note']),
+      attributes: json['attributes'] as List<dynamic>,
+      defaultAttributes: json['default_attributes'] as List<dynamic>,
+      menuOrder: (json['menu_order'] as num).toInt(),
+      postPassword: _stringFromJson(json['post_password']),
+      virtual: json['virtual'] as bool,
+      downloadable: json['downloadable'] as bool,
+      categoryIds: (json['category_ids'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
+      tagIds: (json['tag_ids'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
+      brandIds: (json['brand_ids'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
+      shippingClassId: (json['shipping_class_id'] as num).toInt(),
+      downloads: json['downloads'] as List<dynamic>,
+      downloadLimit: (json['download_limit'] as num).toInt(),
+      downloadExpiry: (json['download_expiry'] as num).toInt(),
+      ratingCounts: json['rating_counts'] as List<dynamic>,
+      averageRating: _stringFromJson(json['average_rating']),
+      reviewCount: (json['review_count'] as num).toInt(),
+      cogsValue: _nullableStringFromJson(json['cogs_value']),
+      metaData: json['meta_data'] as List<dynamic>,
+      nameEn: _stringFromJson(json['name_en']),
+      nameAr: _stringFromJson(json['name_ar']),
+      descriptionEn: _stringFromJson(json['description_en']),
+      descriptionAr: _stringFromJson(json['description_ar']),
+      image: _stringFromJson(json['image']),
+      priceTax: (json['price_tax'] as num).toInt(),
+      priceTaxSale: (json['price_tax_sale'] as num).toInt(),
+      points: (json['points'] as num).toInt(),
+      onSale: json['on_sale'] as bool,
+      relatedIds: (json['related_ids'] as List<dynamic>)
+          .map((e) => (e as num).toInt())
+          .toList(),
+      type: _stringFromJson(json['type']),
+    );
+
+Map<String, dynamic> _$$ProductDetailsModelImplToJson(
+        _$ProductDetailsModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'slug': instance.slug,
+      'date_created': instance.dateCreated.toIso8601String(),
+      'date_modified': instance.dateModified.toIso8601String(),
+      'status': instance.status,
+      'featured': instance.featured,
+      'catalog_visibility': instance.catalogVisibility,
+      'description': instance.description,
+      'short_description': instance.shortDescription,
+      'sku': instance.sku,
+      'global_unique_id': instance.globalUniqueId,
+      'price': _stringToJson(instance.price),
+      'regular_price': _stringToJson(instance.regularPrice),
+      'sale_price': _stringToJson(instance.salePrice),
+      'total_sales': instance.totalSales,
+      'tax_status': instance.taxStatus,
+      'tax_class': instance.taxClass,
+      'manage_stock': instance.manageStock,
+      'stock_quantity': instance.stockQuantity,
+      'stock_status': instance.stockStatus,
+      'backorders': instance.backorders,
+      'sold_individually': instance.soldIndividually,
+      'weight': _stringToJson(instance.weight),
+      'length': _stringToJson(instance.length),
+      'width': _stringToJson(instance.width),
+      'height': _stringToJson(instance.height),
+      'upsell_ids': instance.upsellIds,
+      'cross_sell_ids': instance.crossSellIds,
+      'parent_id': instance.parentId,
+      'reviews_allowed': instance.reviewsAllowed,
+      'purchase_note': _stringToJson(instance.purchaseNote),
+      'attributes': instance.attributes,
+      'default_attributes': instance.defaultAttributes,
+      'menu_order': instance.menuOrder,
+      'post_password': _stringToJson(instance.postPassword),
+      'virtual': instance.virtual,
+      'downloadable': instance.downloadable,
+      'category_ids': instance.categoryIds,
+      'tag_ids': instance.tagIds,
+      'brand_ids': instance.brandIds,
+      'shipping_class_id': instance.shippingClassId,
+      'downloads': instance.downloads,
+      'download_limit': instance.downloadLimit,
+      'download_expiry': instance.downloadExpiry,
+      'rating_counts': instance.ratingCounts,
+      'average_rating': _stringToJson(instance.averageRating),
+      'review_count': instance.reviewCount,
+      'cogs_value': _nullableStringToJson(instance.cogsValue),
+      'meta_data': instance.metaData,
+      'name_en': instance.nameEn,
+      'name_ar': instance.nameAr,
+      'description_en': instance.descriptionEn,
+      'description_ar': instance.descriptionAr,
+      'image': instance.image,
+      'price_tax': instance.priceTax,
+      'price_tax_sale': instance.priceTaxSale,
+      'points': instance.points,
+      'on_sale': instance.onSale,
+      'related_ids': instance.relatedIds,
+      'type': instance.type,
+    };

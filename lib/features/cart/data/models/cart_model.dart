@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'cart_item_model.dart';
 import 'package:mahmoud_task_trust/features/cart/domain/entities/cart_entity.dart';
-import 'package:mahmoud_task_trust/features/cart/data/models/cart_item_model.dart';
 
 part 'cart_model.freezed.dart';
 part 'cart_model.g.dart';

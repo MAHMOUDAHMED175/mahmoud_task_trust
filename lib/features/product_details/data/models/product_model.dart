@@ -5,6 +5,51 @@ import 'package:mahmoud_task_trust/features/product_details/domain/entities/prod
 part 'product_model.freezed.dart';
 part 'product_model.g.dart';
 
+// Fixed DateTime parsing from API response
+/// Helper functions for JSON parsing
+String _stringFromJson(dynamic json) {
+  if (json == null) return '';
+  if (json is String) return json;
+  if (json is int) return json.toString();
+  if (json is double) return json.toStringAsFixed(2);
+  if (json is Map) return json.toString();
+  return json.toString();
+}
+
+String? _nullableStringFromJson(dynamic json) {
+  if (json == null) return null;
+  if (json is String) return json;
+  if (json is int) return json.toString();
+  if (json is double) return json.toStringAsFixed(2);
+  if (json is Map) return json.toString();
+  return json.toString();
+}
+
+DateTime _dateTimeFromJson(dynamic json) {
+  if (json == null) return DateTime.now();
+  if (json is DateTime) return json;
+  if (json is String) {
+    try {
+      return DateTime.parse(json);
+    } catch (_) {
+      return DateTime.now();
+    }
+  }
+  if (json is Map<String, dynamic>) {
+    try {
+      final dateStr = json['date'] as String?;
+      if (dateStr != null) {
+        return DateTime.parse(dateStr);
+      }
+    } catch (_) {}
+  }
+  return DateTime.now();
+}
+
+dynamic _stringToJson(String value) => value;
+dynamic _nullableStringToJson(String? value) => value;
+dynamic _dateTimeToJson(DateTime value) => value.toIso8601String();
+
 @freezed
 class ProductDetailsModel with _$ProductDetailsModel {
   const factory ProductDetailsModel({
@@ -20,9 +65,14 @@ class ProductDetailsModel with _$ProductDetailsModel {
     @JsonKey(name: 'short_description') required String shortDescription,
     required String sku,
     @JsonKey(name: 'global_unique_id') required String globalUniqueId,
+    @JsonKey(fromJson: _stringFromJson, toJson: _stringToJson)
     required String price,
-    @JsonKey(name: 'regular_price') required String regularPrice,
-    @JsonKey(name: 'sale_price') required String salePrice,
+    @JsonKey(
+        name: 'regular_price', fromJson: _stringFromJson, toJson: _stringToJson)
+    required String regularPrice,
+    @JsonKey(
+        name: 'sale_price', fromJson: _stringFromJson, toJson: _stringToJson)
+    required String salePrice,
     @JsonKey(name: 'total_sales') required int totalSales,
     @JsonKey(name: 'tax_status') required String taxStatus,
     @JsonKey(name: 'tax_class') required String taxClass,
@@ -31,20 +81,28 @@ class ProductDetailsModel with _$ProductDetailsModel {
     @JsonKey(name: 'stock_status') required String stockStatus,
     @JsonKey(name: 'backorders') required String backorders,
     @JsonKey(name: 'sold_individually') required bool soldIndividually,
+    @JsonKey(fromJson: _stringFromJson, toJson: _stringToJson)
     required String weight,
+    @JsonKey(fromJson: _stringFromJson, toJson: _stringToJson)
     required String length,
+    @JsonKey(fromJson: _stringFromJson, toJson: _stringToJson)
     required String width,
+    @JsonKey(fromJson: _stringFromJson, toJson: _stringToJson)
     required String height,
     @JsonKey(name: 'upsell_ids') required List<int> upsellIds,
     @JsonKey(name: 'cross_sell_ids') required List<int> crossSellIds,
     @JsonKey(name: 'parent_id') required int parentId,
     @JsonKey(name: 'reviews_allowed') required bool reviewsAllowed,
-    @JsonKey(name: 'purchase_note') required String purchaseNote,
+    @JsonKey(
+        name: 'purchase_note', fromJson: _stringFromJson, toJson: _stringToJson)
+    required String purchaseNote,
     required List<dynamic> attributes,
     @JsonKey(name: 'default_attributes')
     required List<dynamic> defaultAttributes,
     @JsonKey(name: 'menu_order') required int menuOrder,
-    @JsonKey(name: 'post_password') required String postPassword,
+    @JsonKey(
+        name: 'post_password', fromJson: _stringFromJson, toJson: _stringToJson)
+    required String postPassword,
     required bool virtual,
     required bool downloadable,
     @JsonKey(name: 'category_ids') required List<int> categoryIds,
@@ -55,9 +113,17 @@ class ProductDetailsModel with _$ProductDetailsModel {
     @JsonKey(name: 'download_limit') required int downloadLimit,
     @JsonKey(name: 'download_expiry') required int downloadExpiry,
     @JsonKey(name: 'rating_counts') required List<dynamic> ratingCounts,
-    @JsonKey(name: 'average_rating') required String averageRating,
+    @JsonKey(
+        name: 'average_rating',
+        fromJson: _stringFromJson,
+        toJson: _stringToJson)
+    required String averageRating,
     @JsonKey(name: 'review_count') required int reviewCount,
-    @JsonKey(name: 'cogs_value') String? cogsValue,
+    @JsonKey(
+        name: 'cogs_value',
+        fromJson: _nullableStringFromJson,
+        toJson: _nullableStringToJson)
+    String? cogsValue,
     @JsonKey(name: 'meta_data') required List<dynamic> metaData,
     @JsonKey(name: 'name_en') required String nameEn,
     @JsonKey(name: 'name_ar') required String nameAr,

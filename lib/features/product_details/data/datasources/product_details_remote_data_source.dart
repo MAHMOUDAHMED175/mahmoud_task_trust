@@ -60,22 +60,12 @@ class ProductDetailsRemoteDataSourceImpl
         if (data is Map<String, dynamic>) {
           data.forEach((key, value) {
             if (value is Map<String, dynamic>) {
-              final optionsList = value['options'] as List<dynamic>? ?? [];
-              addons.add(
-                AddonModel(
-                  id: value['id'] ?? 0,
-                  title: value['title'] ?? '',
-                  titleAr: value['title_ar'] ?? '',
-                  required: value['required'] ?? false,
-                  isMultiChoice: value['IsMultiChoise'] ?? false,
-                  minMaxRules: MinMaxRulesModel.fromJson(
-                      value['min_max_rules'] ??
-                          {'min': 0, 'max': 0, 'exact': 0}),
-                  options: optionsList
-                      .map((option) => AddonOptionModel.fromJson(option))
-                      .toList(),
-                ),
-              );
+              try {
+                addons.add(AddonModel.fromJson(value));
+              } catch (e) {
+                // Log error but continue processing other addons
+                print('Error parsing addon: $e');
+              }
             }
           });
         }

@@ -1,3 +1,4 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mahmoud_task_trust/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:mahmoud_task_trust/features/product_details/data/models/addon_model.dart';
 

@@ -52,7 +52,7 @@ class CartRemoteDataSourceImpl implements CartRemoteDataSource {
         ApiConstants.cartEndpoint,
         data: {
           'guest_id': guestId,
-          'items': [cartItem.toJson()],
+          'items': [cartItem],
         },
       );
       if (response.statusCode == 200 && response.data != null) {
