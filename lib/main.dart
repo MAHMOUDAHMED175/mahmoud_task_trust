@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
 
           return MaterialApp(
             title: 'Food App',
+            debugShowCheckedModeBanner: false,
             locale: locale,
             localizationsDelegates: const [
               AppLocalizations.delegate,
