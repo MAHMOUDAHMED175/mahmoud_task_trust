@@ -12,6 +12,7 @@ part 'categories_cubit.freezed.dart';
 @injectable
 class CategoriesCubit extends Cubit<CategoriesState> {
   final GetCategories getCategories;
+  int indexNumProud = 0;
 
   CategoriesCubit({required this.getCategories})
       : super(const CategoriesState.initial());
@@ -23,5 +24,10 @@ class CategoriesCubit extends Cubit<CategoriesState> {
       (failure) => emit(CategoriesState.error(message: failure.toString())),
       (categories) => emit(CategoriesState.loaded(categories: categories)),
     );
+  }
+
+  void changeIndex(int index) {
+    indexNumProud = index;
+    emit(CategoriesState.changeindex());
   }
 }

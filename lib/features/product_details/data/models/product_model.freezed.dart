@@ -29,8 +29,18 @@ mixin _$ProductModel {
   String get descriptionEn => throw _privateConstructorUsedError;
   @JsonKey(name: 'description_ar')
   String get descriptionAr => throw _privateConstructorUsedError;
-  String get price => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
+
+  /// prices
+  @JsonKey(name: 'price_tax')
+  int get priceTax => throw _privateConstructorUsedError;
+  @JsonKey(name: 'price_tax_sale')
+  int get priceTaxSale => throw _privateConstructorUsedError;
+
+  /// flags
+  @JsonKey(name: 'on_sale')
+  bool get onSale => throw _privateConstructorUsedError;
+  int get points => throw _privateConstructorUsedError;
 
   /// Serializes this ProductModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,8 +64,11 @@ abstract class $ProductModelCopyWith<$Res> {
       @JsonKey(name: 'name_ar') String nameAr,
       @JsonKey(name: 'description_en') String descriptionEn,
       @JsonKey(name: 'description_ar') String descriptionAr,
-      String price,
-      String image});
+      String image,
+      @JsonKey(name: 'price_tax') int priceTax,
+      @JsonKey(name: 'price_tax_sale') int priceTaxSale,
+      @JsonKey(name: 'on_sale') bool onSale,
+      int points});
 }
 
 /// @nodoc
@@ -78,8 +91,11 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
     Object? nameAr = null,
     Object? descriptionEn = null,
     Object? descriptionAr = null,
-    Object? price = null,
     Object? image = null,
+    Object? priceTax = null,
+    Object? priceTaxSale = null,
+    Object? onSale = null,
+    Object? points = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -102,14 +118,26 @@ class _$ProductModelCopyWithImpl<$Res, $Val extends ProductModel>
           ? _value.descriptionAr
           : descriptionAr // ignore: cast_nullable_to_non_nullable
               as String,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as String,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      priceTax: null == priceTax
+          ? _value.priceTax
+          : priceTax // ignore: cast_nullable_to_non_nullable
+              as int,
+      priceTaxSale: null == priceTaxSale
+          ? _value.priceTaxSale
+          : priceTaxSale // ignore: cast_nullable_to_non_nullable
+              as int,
+      onSale: null == onSale
+          ? _value.onSale
+          : onSale // ignore: cast_nullable_to_non_nullable
+              as bool,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -128,8 +156,11 @@ abstract class _$$ProductModelImplCopyWith<$Res>
       @JsonKey(name: 'name_ar') String nameAr,
       @JsonKey(name: 'description_en') String descriptionEn,
       @JsonKey(name: 'description_ar') String descriptionAr,
-      String price,
-      String image});
+      String image,
+      @JsonKey(name: 'price_tax') int priceTax,
+      @JsonKey(name: 'price_tax_sale') int priceTaxSale,
+      @JsonKey(name: 'on_sale') bool onSale,
+      int points});
 }
 
 /// @nodoc
@@ -150,8 +181,11 @@ class __$$ProductModelImplCopyWithImpl<$Res>
     Object? nameAr = null,
     Object? descriptionEn = null,
     Object? descriptionAr = null,
-    Object? price = null,
     Object? image = null,
+    Object? priceTax = null,
+    Object? priceTaxSale = null,
+    Object? onSale = null,
+    Object? points = null,
   }) {
     return _then(_$ProductModelImpl(
       id: null == id
@@ -174,14 +208,26 @@ class __$$ProductModelImplCopyWithImpl<$Res>
           ? _value.descriptionAr
           : descriptionAr // ignore: cast_nullable_to_non_nullable
               as String,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as String,
       image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      priceTax: null == priceTax
+          ? _value.priceTax
+          : priceTax // ignore: cast_nullable_to_non_nullable
+              as int,
+      priceTaxSale: null == priceTaxSale
+          ? _value.priceTaxSale
+          : priceTaxSale // ignore: cast_nullable_to_non_nullable
+              as int,
+      onSale: null == onSale
+          ? _value.onSale
+          : onSale // ignore: cast_nullable_to_non_nullable
+              as bool,
+      points: null == points
+          ? _value.points
+          : points // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -195,8 +241,11 @@ class _$ProductModelImpl extends _ProductModel {
       @JsonKey(name: 'name_ar') required this.nameAr,
       @JsonKey(name: 'description_en') required this.descriptionEn,
       @JsonKey(name: 'description_ar') required this.descriptionAr,
-      required this.price,
-      required this.image})
+      required this.image,
+      @JsonKey(name: 'price_tax') required this.priceTax,
+      @JsonKey(name: 'price_tax_sale') required this.priceTaxSale,
+      @JsonKey(name: 'on_sale') required this.onSale,
+      required this.points})
       : super._();
 
   factory _$ProductModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -217,13 +266,26 @@ class _$ProductModelImpl extends _ProductModel {
   @JsonKey(name: 'description_ar')
   final String descriptionAr;
   @override
-  final String price;
-  @override
   final String image;
+
+  /// prices
+  @override
+  @JsonKey(name: 'price_tax')
+  final int priceTax;
+  @override
+  @JsonKey(name: 'price_tax_sale')
+  final int priceTaxSale;
+
+  /// flags
+  @override
+  @JsonKey(name: 'on_sale')
+  final bool onSale;
+  @override
+  final int points;
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, nameEn: $nameEn, nameAr: $nameAr, descriptionEn: $descriptionEn, descriptionAr: $descriptionAr, price: $price, image: $image)';
+    return 'ProductModel(id: $id, nameEn: $nameEn, nameAr: $nameAr, descriptionEn: $descriptionEn, descriptionAr: $descriptionAr, image: $image, priceTax: $priceTax, priceTaxSale: $priceTaxSale, onSale: $onSale, points: $points)';
   }
 
   @override
@@ -238,14 +300,29 @@ class _$ProductModelImpl extends _ProductModel {
                 other.descriptionEn == descriptionEn) &&
             (identical(other.descriptionAr, descriptionAr) ||
                 other.descriptionAr == descriptionAr) &&
-            (identical(other.price, price) || other.price == price) &&
-            (identical(other.image, image) || other.image == image));
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.priceTax, priceTax) ||
+                other.priceTax == priceTax) &&
+            (identical(other.priceTaxSale, priceTaxSale) ||
+                other.priceTaxSale == priceTaxSale) &&
+            (identical(other.onSale, onSale) || other.onSale == onSale) &&
+            (identical(other.points, points) || other.points == points));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, nameEn, nameAr,
-      descriptionEn, descriptionAr, price, image);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      nameEn,
+      nameAr,
+      descriptionEn,
+      descriptionAr,
+      image,
+      priceTax,
+      priceTaxSale,
+      onSale,
+      points);
 
   /// Create a copy of ProductModel
   /// with the given fields replaced by the non-null parameter values.
@@ -270,8 +347,11 @@ abstract class _ProductModel extends ProductModel {
       @JsonKey(name: 'name_ar') required final String nameAr,
       @JsonKey(name: 'description_en') required final String descriptionEn,
       @JsonKey(name: 'description_ar') required final String descriptionAr,
-      required final String price,
-      required final String image}) = _$ProductModelImpl;
+      required final String image,
+      @JsonKey(name: 'price_tax') required final int priceTax,
+      @JsonKey(name: 'price_tax_sale') required final int priceTaxSale,
+      @JsonKey(name: 'on_sale') required final bool onSale,
+      required final int points}) = _$ProductModelImpl;
   const _ProductModel._() : super._();
 
   factory _ProductModel.fromJson(Map<String, dynamic> json) =
@@ -292,9 +372,22 @@ abstract class _ProductModel extends ProductModel {
   @JsonKey(name: 'description_ar')
   String get descriptionAr;
   @override
-  String get price;
-  @override
   String get image;
+
+  /// prices
+  @override
+  @JsonKey(name: 'price_tax')
+  int get priceTax;
+  @override
+  @JsonKey(name: 'price_tax_sale')
+  int get priceTaxSale;
+
+  /// flags
+  @override
+  @JsonKey(name: 'on_sale')
+  bool get onSale;
+  @override
+  int get points;
 
   /// Create a copy of ProductModel
   /// with the given fields replaced by the non-null parameter values.

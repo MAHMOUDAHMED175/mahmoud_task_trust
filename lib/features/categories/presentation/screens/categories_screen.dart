@@ -1,58 +1,47 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:io';
 import 'package:mahmoud_task_trust/core/di/injection.dart';
-import 'package:mahmoud_task_trust/core/language/language_cubit.dart';
-import 'package:mahmoud_task_trust/features/cart/presentation/screens/cart_screen.dart'; // Import CartScreen
+import 'package:mahmoud_task_trust/features/categories/domain/entities/category_entity.dart';
 import 'package:mahmoud_task_trust/features/categories/presentation/cubit/categories_cubit.dart';
+import 'package:mahmoud_task_trust/features/product_details/domain/entities/product_entity.dart';
 import 'package:mahmoud_task_trust/features/product_details/presentation/screens/product_details_screen.dart';
 import 'package:mahmoud_task_trust/l10n/app_localizations.dart';
 
-class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key});
-
-  Widget _buildNetworkImage(String imageUrl) {
-    return Container(
-      color: Colors.grey[200],
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(0),
-        child: FutureBuilder(
-          future: Future.delayed(const Duration(milliseconds: 500)),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
+/*  This is a placeholder comment for the code section above. */
+Widget buildNetworkImage(String imageUrl) {
+  return Container(
+    color: Colors.grey[200],
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(0),
+      child: FutureBuilder(
+        future: Future.delayed(const Duration(milliseconds: 500)),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
               return const Center(child: CircularProgressIndicator());
-            }
-            return Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return const Center(child: CircularProgressIndicator());
-              },
-              errorBuilder: (context, error, stackTrace) {
-                print('Image error for $imageUrl: $error');
-                // Fallback to a simple colored container
-                return Container(
-                  color: Colors.grey[300],
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.food_bank, size: 50, color: Colors.red[300]),
-                        const SizedBox(height: 8),
-                        const Text('صورة', style: TextStyle(fontSize: 12)),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            );
-          },
-        ),
+            },
+            errorBuilder: (context, error, stackTrace) {
+              print('Image error for $imageUrl: $error');
+              // Fallback to a simple colored container
+              return Center(
+                child: Icon(Icons.food_bank, size: 30, color: Colors.red[300]),
+              );
+            },
+          );
+        },
       ),
-    );
-  }
+    ),
+  );
+}
+
+class CategoriesProductsScreen extends StatelessWidget {
+  const CategoriesProductsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -61,69 +50,91 @@ class CategoriesScreen extends StatelessWidget {
       child: Scaffold(
         body: BlocBuilder<CategoriesCubit, CategoriesState>(
           builder: (context, state) {
-            return state.when(
+            return state.maybeWhen(
+              orElse: () {
+                return const Center(child: Icon(Icons.abc_outlined));
+              },
               initial: () =>
                   Center(child: Text(AppLocalizations.of(context)!.pleaseWait)),
               loading: () => const Center(child: CircularProgressIndicator()),
               loaded: (categories) {
-                return GridView.builder(
-                  padding: const EdgeInsets.all(16.0),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16.0,
-                    mainAxisSpacing: 16.0,
-                    childAspectRatio: 0.8,
-                  ),
-                  itemCount: categories.length,
-                  itemBuilder: (context, index) {
-                    final category = categories[index];
-                    // Verify image URL
-                    final imageUrl = category.image.isEmpty
-                        ? 'https://via.placeholder.com/150'
-                        : category.image;
-                    print("Category Image URL: $imageUrl");
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const ProductDetailsScreen(productId: 3347),
-                          ),
-                        );
-                      },
-                      child: Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
+                return Directionality(
+                  //خليك فاكر عشان لما اللغه تتغير تعملها  شمال ويمين
+                  textDirection: TextDirection.values[
+                      Localizations.localeOf(context).languageCode == 'ar'
+                          ? 1
+                          : 0],
+                  child: Scaffold(
+                    backgroundColor:
+                        const Color(0xFFFFF3E8), // cream background
+                    body: SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
+                            SizedBox(
+                              height: 45,
+                              child: ListView.separated(
+                                reverse: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: categories.length,
+                                separatorBuilder: (_, __) =>
+                                    const SizedBox(width: 8),
+                                itemBuilder: (context, index) {
+                                  final category = categories[index];
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          BlocProvider.of<CategoriesCubit>(
+                                                  context)
+                                              .changeIndex(index);
+                                        },
+                                        child: _Chip(
+                                            title: category.name,
+                                            active: true,
+                                            image: category.image),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                            const SizedBox(height: 16),
+                            const Text(
+                              'عروض دوشكا برجر',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: 16),
                             Expanded(
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.vertical(
-                                  top: Radius.circular(12.0),
-                                ),
-                                child: _buildNetworkImage(imageUrl),
+                              child: ListView.separated(
+                                itemCount: categories[
+                                        BlocProvider.of<CategoriesCubit>(
+                                                context)
+                                            .indexNumProud]
+                                    .products
+                                    .length,
+                                separatorBuilder: (_, __) =>
+                                    const SizedBox(height: 16),
+                                itemBuilder: (context, index) {
+                                  final product = categories[
+                                          BlocProvider.of<CategoriesCubit>(
+                                                  context)
+                                              .indexNumProud]
+                                      .products[index];
+
+                                  return _ProductItem(product: product);
+                                },
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                category.name,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                ),
-                              ),
-                            ),
+                            )
                           ],
                         ),
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 );
               },
               error: (message) => Center(
@@ -136,62 +147,12 @@ class CategoriesScreen extends StatelessWidget {
   }
 }
 
-/*  This is a placeholder comment for the code section above. */
-
-class CategoriesProductsScreen extends StatelessWidget {
-  const CategoriesProductsScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      //خليك فاكر عشان لما اللغه تتغير تعملها  شمال ويمين
-      textDirection: TextDirection
-          .values[Localizations.localeOf(context).languageCode == 'ar' ? 1 : 0],
-      child: Scaffold(
-        backgroundColor: const Color(0xFFFFF3E8), // cream background
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    _Chip(title: 'عروض دوشكا برجر', active: true),
-                    const SizedBox(width: 8),
-                    _Chip(title: 'عروض الابليكيشن'),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'عروض دوشكا برجر',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: ListView.separated(
-                    itemCount: 6,
-                    separatorBuilder: (_, __) => const SizedBox(height: 16),
-                    itemBuilder: (context, index) {
-                      return const _ProductItem();
-                    },
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 class _Chip extends StatelessWidget {
   final String title;
+  final String image;
   final bool active;
 
-  const _Chip({required this.title, this.active = false});
+  const _Chip({required this.title, this.active = false, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +160,7 @@ class _Chip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: active ? Colors.red : const Color(0xFFFFD6D6),
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(14),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -211,15 +172,40 @@ class _Chip extends StatelessWidget {
           SizedBox(
             width: 4,
           ),
-          Icon(Icons.coffee),
+          SizedBox(
+            height: 25,
+            child: Image.network(
+              image,
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return const Center(child: CircularProgressIndicator());
+              },
+              errorBuilder: (context, error, stackTrace) {
+                print('Image error for $image: $error');
+                // Fallback to a simple colored container
+                return Icon(Icons.food_bank, size: 25, color: Colors.white);
+              },
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
+// Navigator.push(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder: (context) => ProductDetailsScreen(
+//                               productId: category.id,
+//                             ),
+//                           ),
+//                         );
 class _ProductItem extends StatelessWidget {
-  const _ProductItem();
+  _ProductItem({required this.product});
+
+  final ProductEntity product;
 
   @override
   Widget build(BuildContext context) {
@@ -242,11 +228,13 @@ class _ProductItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.start,
-            children: const [
-              Text('ميجا بايت بوكس',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+            children: [
+              Text(product.name,
+                  style: TextStyle(fontWeight: FontWeight.normal)),
               SizedBox(height: 16),
-              Text('249 ج.م', style: TextStyle(color: Colors.black)),
+              Text(' ج.م ${product.price}',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black)),
             ],
           ),
         ),
@@ -259,30 +247,8 @@ class _ProductItem extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: const Icon(Icons.fastfood, size: 40),
+          child: buildNetworkImage(product.image),
         ),
-      ],
-    );
-  }
-}
-
-class _NavItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final bool active;
-
-  const _NavItem(
-      {required this.icon, required this.label, this.active = false});
-
-  @override
-  Widget build(BuildContext context) {
-    final color = active ? const Color(0xFF4A2C1A) : Colors.grey;
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, color: color),
-        const SizedBox(height: 4),
-        Text(label, style: TextStyle(color: color, fontSize: 12)),
       ],
     );
   }

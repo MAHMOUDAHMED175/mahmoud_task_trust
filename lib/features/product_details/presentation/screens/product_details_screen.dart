@@ -115,7 +115,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     child: Text(AppLocalizations.of(context)!.error(message))),
                 loaded: (product, addons) {
                   // Calculate totals
-                  double productPrice = double.tryParse(product.price) ?? 0.0;
+                  double productPrice =
+                      double.tryParse(product.price.toString()) ?? 0.0;
                   double addonPrice = selectedAddons.fold(
                       0.0,
                       (sum, addon) =>

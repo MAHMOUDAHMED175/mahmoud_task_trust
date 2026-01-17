@@ -37,7 +37,10 @@ class ProductsScreen extends StatelessWidget {
         ),
         body: BlocBuilder<CategoriesCubit, CategoriesState>(
           builder: (context, state) {
-            return state.when(
+            return state.maybeWhen(
+              orElse: () {
+                return const Center(child: CircularProgressIndicator());
+              },
               initial: () =>
                   Center(child: Text(AppLocalizations.of(context)!.pleaseWait)),
               loading: () => const Center(child: CircularProgressIndicator()),
