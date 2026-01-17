@@ -7,7 +7,7 @@ import 'package:mahmoud_task_trust/features/product_details/data/models/addon_mo
 import 'package:mahmoud_task_trust/features/product_details/data/models/product_model.dart';
 
 abstract class ProductDetailsRemoteDataSource {
-  Future<ProductModel> getProductDetails(int productId);
+  Future<ProductDetailsModel> getProductDetails(int productId);
   Future<List<AddonModel>> getProductAddons(int productId);
 }
 
@@ -19,17 +19,21 @@ class ProductDetailsRemoteDataSourceImpl
   ProductDetailsRemoteDataSourceImpl({required this.apiClient});
 
   @override
-  Future<ProductModel> getProductDetails(int productId) async {
+  Future<ProductDetailsModel> getProductDetails(int productId) async {
     try {
       final response = await apiClient.dio.get(
         ApiConstants.productsEndpoint,
         queryParameters: {'product_id': productId},
       );
+
       if (response.statusCode == 200) {
-        // The API returns a list with a single product
-        final Map<String, dynamic> data = response.data;
-        if (data.isNotEmpty) {
-          return ProductModel.fromJson(data);
+        final data = response.data;
+
+        // لو الداتا جاية كـ List أو Map
+        if (data is List && data.isNotEmpty) {
+          return ProductDetailsModel.fromJson(data.first);
+        } else if (data is Map<String, dynamic> && data.isNotEmpty) {
+          return ProductDetailsModel.fromJson(data);
         } else {
           throw ServerException('Product not found');
         }
@@ -48,18 +52,34 @@ class ProductDetailsRemoteDataSourceImpl
         ApiConstants.addonsEndpoint,
         queryParameters: {'product_id2': productId},
       );
+
       if (response.statusCode == 200) {
-        // The API returns a map where each key is an addon category
-        final Map<String, dynamic> data = response.data;
+        final data = response.data;
         final List<AddonModel> addons = [];
-        data.forEach((key, value) {
-          if (value is Map<String, dynamic> && value.containsKey('options')) {
-            final List<dynamic> options = value['options'];
-            for (var option in options) {
-              addons.add(AddonModel.fromJson(option));
+
+        if (data is Map<String, dynamic>) {
+          data.forEach((key, value) {
+            if (value is Map<String, dynamic>) {
+              final optionsList = value['options'] as List<dynamic>? ?? [];
+              addons.add(
+                AddonModel(
+                  id: value['id'] ?? 0,
+                  title: value['title'] ?? '',
+                  titleAr: value['title_ar'] ?? '',
+                  required: value['required'] ?? false,
+                  isMultiChoice: value['IsMultiChoise'] ?? false,
+                  minMaxRules: MinMaxRulesModel.fromJson(
+                      value['min_max_rules'] ??
+                          {'min': 0, 'max': 0, 'exact': 0}),
+                  options: optionsList
+                      .map((option) => AddonOptionModel.fromJson(option))
+                      .toList(),
+                ),
+              );
             }
-          }
-        });
+          });
+        }
+
         return addons;
       } else {
         throw ServerException('Failed to load product addons');

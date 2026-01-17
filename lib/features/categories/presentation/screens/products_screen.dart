@@ -44,7 +44,7 @@ class ProductsScreen extends StatelessWidget {
               initial: () =>
                   Center(child: Text(AppLocalizations.of(context)!.pleaseWait)),
               loading: () => const Center(child: CircularProgressIndicator()),
-              loaded: (categories) {
+              loaded: (categories, index) {
                 final isArabic =
                     Localizations.localeOf(context).languageCode == 'ar';
                 return ListView.builder(

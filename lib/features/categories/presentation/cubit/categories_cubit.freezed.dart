@@ -20,8 +20,9 @@ mixin _$CategoriesState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() changeindex,
-    required TResult Function(List<CategoryEntity> categories) loaded,
+    required TResult Function(
+            List<CategoryEntity> categories, int selectedIndex)
+        loaded,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -29,8 +30,8 @@ mixin _$CategoriesState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? changeindex,
-    TResult? Function(List<CategoryEntity> categories)? loaded,
+    TResult? Function(List<CategoryEntity> categories, int selectedIndex)?
+        loaded,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -38,8 +39,8 @@ mixin _$CategoriesState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? changeindex,
-    TResult Function(List<CategoryEntity> categories)? loaded,
+    TResult Function(List<CategoryEntity> categories, int selectedIndex)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -48,7 +49,6 @@ mixin _$CategoriesState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_ChangeIndex value) changeindex,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) =>
@@ -57,7 +57,6 @@ mixin _$CategoriesState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_ChangeIndex value)? changeindex,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) =>
@@ -66,7 +65,6 @@ mixin _$CategoriesState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_ChangeIndex value)? changeindex,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -138,8 +136,9 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() changeindex,
-    required TResult Function(List<CategoryEntity> categories) loaded,
+    required TResult Function(
+            List<CategoryEntity> categories, int selectedIndex)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -150,8 +149,8 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? changeindex,
-    TResult? Function(List<CategoryEntity> categories)? loaded,
+    TResult? Function(List<CategoryEntity> categories, int selectedIndex)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return initial?.call();
@@ -162,8 +161,8 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? changeindex,
-    TResult Function(List<CategoryEntity> categories)? loaded,
+    TResult Function(List<CategoryEntity> categories, int selectedIndex)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -178,7 +177,6 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_ChangeIndex value) changeindex,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
@@ -190,7 +188,6 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_ChangeIndex value)? changeindex,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
@@ -202,7 +199,6 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_ChangeIndex value)? changeindex,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -261,8 +257,9 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() changeindex,
-    required TResult Function(List<CategoryEntity> categories) loaded,
+    required TResult Function(
+            List<CategoryEntity> categories, int selectedIndex)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -273,8 +270,8 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? changeindex,
-    TResult? Function(List<CategoryEntity> categories)? loaded,
+    TResult? Function(List<CategoryEntity> categories, int selectedIndex)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -285,8 +282,8 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? changeindex,
-    TResult Function(List<CategoryEntity> categories)? loaded,
+    TResult Function(List<CategoryEntity> categories, int selectedIndex)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -301,7 +298,6 @@ class _$LoadingImpl implements _Loading {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_ChangeIndex value) changeindex,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
@@ -313,7 +309,6 @@ class _$LoadingImpl implements _Loading {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_ChangeIndex value)? changeindex,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
@@ -325,7 +320,6 @@ class _$LoadingImpl implements _Loading {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_ChangeIndex value)? changeindex,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -342,135 +336,12 @@ abstract class _Loading implements CategoriesState {
 }
 
 /// @nodoc
-abstract class _$$ChangeIndexImplCopyWith<$Res> {
-  factory _$$ChangeIndexImplCopyWith(
-          _$ChangeIndexImpl value, $Res Function(_$ChangeIndexImpl) then) =
-      __$$ChangeIndexImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$ChangeIndexImplCopyWithImpl<$Res>
-    extends _$CategoriesStateCopyWithImpl<$Res, _$ChangeIndexImpl>
-    implements _$$ChangeIndexImplCopyWith<$Res> {
-  __$$ChangeIndexImplCopyWithImpl(
-      _$ChangeIndexImpl _value, $Res Function(_$ChangeIndexImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of CategoriesState
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$ChangeIndexImpl implements _ChangeIndex {
-  const _$ChangeIndexImpl();
-
-  @override
-  String toString() {
-    return 'CategoriesState.changeindex()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ChangeIndexImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() loading,
-    required TResult Function() changeindex,
-    required TResult Function(List<CategoryEntity> categories) loaded,
-    required TResult Function(String message) error,
-  }) {
-    return changeindex();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? loading,
-    TResult? Function()? changeindex,
-    TResult? Function(List<CategoryEntity> categories)? loaded,
-    TResult? Function(String message)? error,
-  }) {
-    return changeindex?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? loading,
-    TResult Function()? changeindex,
-    TResult Function(List<CategoryEntity> categories)? loaded,
-    TResult Function(String message)? error,
-    required TResult orElse(),
-  }) {
-    if (changeindex != null) {
-      return changeindex();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Loading value) loading,
-    required TResult Function(_ChangeIndex value) changeindex,
-    required TResult Function(_Loaded value) loaded,
-    required TResult Function(_Error value) error,
-  }) {
-    return changeindex(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Loading value)? loading,
-    TResult? Function(_ChangeIndex value)? changeindex,
-    TResult? Function(_Loaded value)? loaded,
-    TResult? Function(_Error value)? error,
-  }) {
-    return changeindex?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Loading value)? loading,
-    TResult Function(_ChangeIndex value)? changeindex,
-    TResult Function(_Loaded value)? loaded,
-    TResult Function(_Error value)? error,
-    required TResult orElse(),
-  }) {
-    if (changeindex != null) {
-      return changeindex(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _ChangeIndex implements CategoriesState {
-  const factory _ChangeIndex() = _$ChangeIndexImpl;
-}
-
-/// @nodoc
 abstract class _$$LoadedImplCopyWith<$Res> {
   factory _$$LoadedImplCopyWith(
           _$LoadedImpl value, $Res Function(_$LoadedImpl) then) =
       __$$LoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<CategoryEntity> categories});
+  $Res call({List<CategoryEntity> categories, int selectedIndex});
 }
 
 /// @nodoc
@@ -487,12 +358,17 @@ class __$$LoadedImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? categories = null,
+    Object? selectedIndex = null,
   }) {
     return _then(_$LoadedImpl(
       categories: null == categories
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<CategoryEntity>,
+      selectedIndex: null == selectedIndex
+          ? _value.selectedIndex
+          : selectedIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -500,7 +376,8 @@ class __$$LoadedImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$LoadedImpl implements _Loaded {
-  const _$LoadedImpl({required final List<CategoryEntity> categories})
+  const _$LoadedImpl(
+      {required final List<CategoryEntity> categories, this.selectedIndex = 0})
       : _categories = categories;
 
   final List<CategoryEntity> _categories;
@@ -512,8 +389,12 @@ class _$LoadedImpl implements _Loaded {
   }
 
   @override
+  @JsonKey()
+  final int selectedIndex;
+
+  @override
   String toString() {
-    return 'CategoriesState.loaded(categories: $categories)';
+    return 'CategoriesState.loaded(categories: $categories, selectedIndex: $selectedIndex)';
   }
 
   @override
@@ -522,12 +403,14 @@ class _$LoadedImpl implements _Loaded {
         (other.runtimeType == runtimeType &&
             other is _$LoadedImpl &&
             const DeepCollectionEquality()
-                .equals(other._categories, _categories));
+                .equals(other._categories, _categories) &&
+            (identical(other.selectedIndex, selectedIndex) ||
+                other.selectedIndex == selectedIndex));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_categories));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_categories), selectedIndex);
 
   /// Create a copy of CategoriesState
   /// with the given fields replaced by the non-null parameter values.
@@ -542,11 +425,12 @@ class _$LoadedImpl implements _Loaded {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() changeindex,
-    required TResult Function(List<CategoryEntity> categories) loaded,
+    required TResult Function(
+            List<CategoryEntity> categories, int selectedIndex)
+        loaded,
     required TResult Function(String message) error,
   }) {
-    return loaded(categories);
+    return loaded(categories, selectedIndex);
   }
 
   @override
@@ -554,11 +438,11 @@ class _$LoadedImpl implements _Loaded {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? changeindex,
-    TResult? Function(List<CategoryEntity> categories)? loaded,
+    TResult? Function(List<CategoryEntity> categories, int selectedIndex)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
-    return loaded?.call(categories);
+    return loaded?.call(categories, selectedIndex);
   }
 
   @override
@@ -566,13 +450,13 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? changeindex,
-    TResult Function(List<CategoryEntity> categories)? loaded,
+    TResult Function(List<CategoryEntity> categories, int selectedIndex)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(categories);
+      return loaded(categories, selectedIndex);
     }
     return orElse();
   }
@@ -582,7 +466,6 @@ class _$LoadedImpl implements _Loaded {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_ChangeIndex value) changeindex,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
@@ -594,7 +477,6 @@ class _$LoadedImpl implements _Loaded {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_ChangeIndex value)? changeindex,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
@@ -606,7 +488,6 @@ class _$LoadedImpl implements _Loaded {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_ChangeIndex value)? changeindex,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),
@@ -619,10 +500,12 @@ class _$LoadedImpl implements _Loaded {
 }
 
 abstract class _Loaded implements CategoriesState {
-  const factory _Loaded({required final List<CategoryEntity> categories}) =
-      _$LoadedImpl;
+  const factory _Loaded(
+      {required final List<CategoryEntity> categories,
+      final int selectedIndex}) = _$LoadedImpl;
 
   List<CategoryEntity> get categories;
+  int get selectedIndex;
 
   /// Create a copy of CategoriesState
   /// with the given fields replaced by the non-null parameter values.
@@ -701,8 +584,9 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() changeindex,
-    required TResult Function(List<CategoryEntity> categories) loaded,
+    required TResult Function(
+            List<CategoryEntity> categories, int selectedIndex)
+        loaded,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -713,8 +597,8 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? changeindex,
-    TResult? Function(List<CategoryEntity> categories)? loaded,
+    TResult? Function(List<CategoryEntity> categories, int selectedIndex)?
+        loaded,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -725,8 +609,8 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? changeindex,
-    TResult Function(List<CategoryEntity> categories)? loaded,
+    TResult Function(List<CategoryEntity> categories, int selectedIndex)?
+        loaded,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -741,7 +625,6 @@ class _$ErrorImpl implements _Error {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
-    required TResult Function(_ChangeIndex value) changeindex,
     required TResult Function(_Loaded value) loaded,
     required TResult Function(_Error value) error,
   }) {
@@ -753,7 +636,6 @@ class _$ErrorImpl implements _Error {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
-    TResult? Function(_ChangeIndex value)? changeindex,
     TResult? Function(_Loaded value)? loaded,
     TResult? Function(_Error value)? error,
   }) {
@@ -765,7 +647,6 @@ class _$ErrorImpl implements _Error {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
-    TResult Function(_ChangeIndex value)? changeindex,
     TResult Function(_Loaded value)? loaded,
     TResult Function(_Error value)? error,
     required TResult orElse(),

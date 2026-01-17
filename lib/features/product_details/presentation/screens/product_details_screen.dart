@@ -115,16 +115,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     child: Text(AppLocalizations.of(context)!.error(message))),
                 loaded: (product, addons) {
                   // Calculate totals
-                  double productPrice =
-                      double.tryParse(product.price.toString()) ?? 0.0;
-                  double addonPrice = selectedAddons.fold(
-                      0.0,
-                      (sum, addon) =>
-                          sum + (double.tryParse(addon.price) ?? 0.0));
-                  double subtotal = (productPrice + addonPrice) * quantity;
-                  double tax = subtotal * 0.15; // 15% tax
-                  double discount = subtotal * _discountPercentage;
-                  double total = subtotal + tax - discount;
 
                   return SingleChildScrollView(
                     padding: const EdgeInsets.all(16.0),
@@ -151,7 +141,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         Text(product.name,
                             style: Theme.of(context).textTheme.headlineSmall),
                         const SizedBox(height: 8),
-                        Text('\$${productPrice.toStringAsFixed(2)}',
+                        Text('\$${product.price.toStringAsFixed(2)}',
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge
@@ -176,9 +166,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                             itemBuilder: (context, index) {
                               final addon = addons[index];
                               return CheckboxListTile(
-                                title: Text(addon.name),
-                                subtitle: Text(
-                                    '+\$${(double.tryParse(addon.price) ?? 0.0).toStringAsFixed(2)}'),
+                                title: Text(addon.title),
                                 value: selectedAddons.contains(addon),
                                 onChanged: (bool? value) {
                                   setState(() {
@@ -247,62 +235,6 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ),
                         const SizedBox(height: 24),
 
-                        // Order Summary
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey[300]!),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            children: [
-                              _buildSummaryRow(
-                                context,
-                                'السعر',
-                                '\$${productPrice.toStringAsFixed(2)}',
-                              ),
-                              if (addonPrice > 0)
-                                _buildSummaryRow(
-                                  context,
-                                  'الإضافات',
-                                  '\$${addonPrice.toStringAsFixed(2)}',
-                                ),
-                              _buildSummaryRow(
-                                context,
-                                'الكمية',
-                                '$quantity',
-                              ),
-                              Divider(color: Colors.grey[300]),
-                              _buildSummaryRow(
-                                context,
-                                'المجموع الفرعي',
-                                '\$${subtotal.toStringAsFixed(2)}',
-                                isBold: true,
-                              ),
-                              _buildSummaryRow(
-                                context,
-                                'الضريبة (15%)',
-                                '\$${tax.toStringAsFixed(2)}',
-                                textColor: Colors.orange,
-                              ),
-                              if (_discountPercentage > 0)
-                                _buildSummaryRow(
-                                  context,
-                                  'الخصم',
-                                  '-\$${discount.toStringAsFixed(2)}',
-                                  textColor: Colors.green,
-                                ),
-                              Divider(color: Colors.grey[300]),
-                              _buildSummaryRow(
-                                context,
-                                'المبلغ الإجمالي',
-                                '\$${total.toStringAsFixed(2)}',
-                                isBold: true,
-                                textColor: Colors.red,
-                              ),
-                            ],
-                          ),
-                        ),
                         const SizedBox(height: 24),
 
                         // Quantity and Add to Cart

@@ -6,14 +6,21 @@ part 'cart_model.freezed.dart';
 part 'cart_model.g.dart';
 
 @freezed
-class CartModel extends CartEntity with _$CartModel {
+class CartModel with _$CartModel {
   const factory CartModel({
     @JsonKey(name: 'cart_items') required List<CartItemModel> items,
     required String total,
   }) = _CartModel;
 
-  const CartModel._() : super(items: const [], total: '');
-
   factory CartModel.fromJson(Map<String, dynamic> json) =>
       _$CartModelFromJson(json);
+}
+
+extension CartModelMapper on CartModel {
+  CartEntity toEntity() {
+    return CartEntity(
+      total: total,
+      items: items.map((item) => item.toEntity()).toList(),
+    );
+  }
 }

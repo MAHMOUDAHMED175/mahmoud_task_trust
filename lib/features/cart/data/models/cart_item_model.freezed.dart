@@ -126,13 +126,12 @@ class __$$CartItemModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CartItemModelImpl extends _CartItemModel {
+class _$CartItemModelImpl implements _CartItemModel {
   const _$CartItemModelImpl(
       {required this.productId,
       required this.quantity,
       required final List<AddonModel> addons})
-      : _addons = addons,
-        super._();
+      : _addons = addons;
 
   factory _$CartItemModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CartItemModelImplFromJson(json);
@@ -148,6 +147,28 @@ class _$CartItemModelImpl extends _CartItemModel {
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_addons);
   }
+
+  @override
+  String toString() {
+    return 'CartItemModel(productId: $productId, quantity: $quantity, addons: $addons)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CartItemModelImpl &&
+            (identical(other.productId, productId) ||
+                other.productId == productId) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity) &&
+            const DeepCollectionEquality().equals(other._addons, _addons));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, productId, quantity,
+      const DeepCollectionEquality().hash(_addons));
 
   /// Create a copy of CartItemModel
   /// with the given fields replaced by the non-null parameter values.
@@ -165,12 +186,11 @@ class _$CartItemModelImpl extends _CartItemModel {
   }
 }
 
-abstract class _CartItemModel extends CartItemModel {
+abstract class _CartItemModel implements CartItemModel {
   const factory _CartItemModel(
       {required final int productId,
       required final int quantity,
       required final List<AddonModel> addons}) = _$CartItemModelImpl;
-  const _CartItemModel._() : super._();
 
   factory _CartItemModel.fromJson(Map<String, dynamic> json) =
       _$CartItemModelImpl.fromJson;

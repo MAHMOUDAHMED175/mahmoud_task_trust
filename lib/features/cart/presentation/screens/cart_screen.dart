@@ -114,7 +114,7 @@ class _CartScreenState extends State<CartScreen> {
                                           Text('الكمية: ${item.quantity}'),
                                           if (item.addons.isNotEmpty)
                                             Text(
-                                              'الإضافات: ${item.addons.map((e) => e.name).join(', ')}',
+                                              'الإضافات: ${item.addons.map((e) => e.title).join(', ')}',
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style:

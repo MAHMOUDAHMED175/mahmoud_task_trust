@@ -117,12 +117,11 @@ class __$$CartModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CartModelImpl extends _CartModel {
+class _$CartModelImpl implements _CartModel {
   const _$CartModelImpl(
       {@JsonKey(name: 'cart_items') required final List<CartItemModel> items,
       required this.total})
-      : _items = items,
-        super._();
+      : _items = items;
 
   factory _$CartModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CartModelImplFromJson(json);
@@ -138,6 +137,25 @@ class _$CartModelImpl extends _CartModel {
 
   @override
   final String total;
+
+  @override
+  String toString() {
+    return 'CartModel(items: $items, total: $total)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CartModelImpl &&
+            const DeepCollectionEquality().equals(other._items, _items) &&
+            (identical(other.total, total) || other.total == total));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_items), total);
 
   /// Create a copy of CartModel
   /// with the given fields replaced by the non-null parameter values.
@@ -155,11 +173,10 @@ class _$CartModelImpl extends _CartModel {
   }
 }
 
-abstract class _CartModel extends CartModel {
+abstract class _CartModel implements CartModel {
   const factory _CartModel(
       {@JsonKey(name: 'cart_items') required final List<CartItemModel> items,
       required final String total}) = _$CartModelImpl;
-  const _CartModel._() : super._();
 
   factory _CartModel.fromJson(Map<String, dynamic> json) =
       _$CartModelImpl.fromJson;

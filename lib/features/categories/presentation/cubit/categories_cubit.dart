@@ -9,10 +9,32 @@ import 'package:mahmoud_task_trust/features/categories/domain/usecases/get_categ
 part 'categories_state.dart';
 part 'categories_cubit.freezed.dart';
 
+// @injectable
+// class CategoriesCubit extends Cubit<CategoriesState> {
+//   final GetCategories getCategories;
+//   int? indexNumProud;
+
+//   CategoriesCubit({required this.getCategories})
+//       : super(const CategoriesState.initial());
+
+//   Future<void> fetchCategories() async {
+//     emit(const CategoriesState.loading());
+//     final failureOrCategories = await getCategories(NoParams());
+//     failureOrCategories.fold(
+//       (failure) => emit(CategoriesState.error(message: failure.toString())),
+//       (categories) => emit(CategoriesState.loaded(categories: categories)),
+//     );
+//   }
+
+//   void changeIndex(int index) {
+//     indexNumProud = index;
+//     emit(CategoriesState.changeindex());
+//   }
+// }
+
 @injectable
 class CategoriesCubit extends Cubit<CategoriesState> {
   final GetCategories getCategories;
-  int indexNumProud = 0;
 
   CategoriesCubit({required this.getCategories})
       : super(const CategoriesState.initial());
@@ -22,12 +44,16 @@ class CategoriesCubit extends Cubit<CategoriesState> {
     final failureOrCategories = await getCategories(NoParams());
     failureOrCategories.fold(
       (failure) => emit(CategoriesState.error(message: failure.toString())),
-      (categories) => emit(CategoriesState.loaded(categories: categories)),
+      (categories) {
+        emit(CategoriesState.loaded(categories: categories));
+      },
     );
   }
 
   void changeIndex(int index) {
-    indexNumProud = index;
-    emit(CategoriesState.changeindex());
+    if (state is _Loaded) {
+      final loadedState = state as _Loaded;
+      emit(loadedState.copyWith(selectedIndex: index));
+    }
   }
 }
